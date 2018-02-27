@@ -2,6 +2,7 @@ package by.htp.login.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +31,8 @@ public class MainServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		BaseAction currentAction = ActionManager.defineServerAction(action);
 		try {
-			currentAction.doAction(request, response);
+			RequestDispatcher dispatcher = currentAction.doAction(request);
+			dispatcher.forward(request, response);
 		}
 		catch(ServletException | IOException e) {
 			e.printStackTrace();

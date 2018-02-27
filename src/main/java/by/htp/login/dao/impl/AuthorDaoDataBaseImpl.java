@@ -1,5 +1,8 @@
 package by.htp.login.dao.impl;
 
+import static by.htp.login.dao.util.DaoSqlRequestsPool.*;
+import static by.htp.login.dao.util.DaoSqlParametres.*;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -13,8 +16,6 @@ import java.util.List;
 import by.htp.login.bean.fields.Author;
 import by.htp.login.dao.AuthorDao;
 
-import static by.htp.login.controller.util.ControllerSqlRequestsPool.*;
-
 public class AuthorDaoDataBaseImpl implements AuthorDao{
 	
 	@Override
@@ -27,7 +28,7 @@ public class AuthorDaoDataBaseImpl implements AuthorDao{
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		try( Connection cn = DriverManager.getConnection(URL,"root","root"); 
+		try( Connection cn = DriverManager.getConnection(URL,CONNECTION_LOGIN,CONNECTION_PASS);
 				 PreparedStatement statement = cn.prepareStatement(SQL_REQUEST_INSERT_NEW_AUTHOR)) {
 			statement.setString(1, author.getName());
 			statement.setString(2, author.getSurname());
@@ -69,13 +70,44 @@ public class AuthorDaoDataBaseImpl implements AuthorDao{
 
 	@Override
 	public void update(Author entity) {
-		throw new UnsupportedOperationException();
-		
+		if(entity==null) {
+			return;
+		}
+		try {
+			Class.forName(DRIVER_SQL);	
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		try( Connection cn = DriverManager.getConnection(URL,CONNECTION_LOGIN,CONNECTION_PASS);
+				PreparedStatement statement = cn.prepareStatement(SQL_REQUEST_UPDATE_AUTHOR)) {
+			statement.setString(1, entity.getName());
+			statement.setString(2, entity.getSurname());
+			statement.setDate(3,  new Date( entity.getBirthday().getTime() ));
+			statement.setInt(4, entity.getId());
+			statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void delete(int id) {
-		throw new UnsupportedOperationException();
+		if(id<=0) {
+			return;
+		}
+		try {
+			Class.forName(DRIVER_SQL);	
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		try( Connection cn = DriverManager.getConnection(URL,CONNECTION_LOGIN,CONNECTION_PASS);
+				PreparedStatement statement = cn.prepareStatement(SQL_REQUEST_DELETE_AUTHOR)) {
+			statement.setInt(1, id);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -87,15 +119,15 @@ public class AuthorDaoDataBaseImpl implements AuthorDao{
 			e1.printStackTrace();
 		}
 		List<Author> authorsList = new ArrayList<>();
-		try( Connection cn = DriverManager.getConnection(URL,"root","root"); 
+		try( Connection cn = DriverManager.getConnection(URL,CONNECTION_LOGIN,CONNECTION_PASS);
 				Statement st =  cn.createStatement();
 				ResultSet userRes = st.executeQuery(SQL_REQUEST_GET_AUTHORS)) {
 			
 			while(userRes.next()) {
-				int id = userRes.getInt("id");
-				String name = userRes.getString("name");
-				String surName = userRes.getString("surname");
-				String birthday = userRes.getString("birthday");
+				int id = userRes.getInt(AUTHOR_ID);
+				String name = userRes.getString(AUTHOR_NAME_COLUMN);
+				String surName = userRes.getString(AUTHOR_SURNAME_COLUMN);
+				String birthday = userRes.getString(AUTHOR_BIRTHDAY_COLUMN);
 				if(name!=null && surName!=null ) {
 					Author aut = new Author(id, name, surName);
 					aut.setBirthday(birthday.replaceAll("-","_"));

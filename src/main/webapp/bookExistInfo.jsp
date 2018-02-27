@@ -13,7 +13,7 @@ body {
 }
 </style>
 <body>
-	<h1 align="left"><c:out  value="${book} has already been added before."/></h1>
+	<h1 align="left"><c:out  value="${title} has already been added before."/></h1>
 	
 	<form action="MainServlet" method="post">
 		<p align="left"><input type="hidden" name="action" value="to_admin_page"/></p>

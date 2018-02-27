@@ -2,6 +2,10 @@ package by.htp.login.bean.users;
 
 public class SimpleUser extends User{
 
+	public SimpleUser(String login) {
+		super(login);
+	}
+	
 	public SimpleUser(String login, String password) {
 		super(login,password);
 	}

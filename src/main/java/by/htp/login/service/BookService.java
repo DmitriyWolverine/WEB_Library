@@ -10,7 +10,7 @@ public interface BookService {
 	void createBook(Book curBook);
 	void updateBook(Book curBook);
 	Book updateParametres(int curId, String curTitle, String curAuthorStr, int curYear);
-	Book initializeNewBook(String curTitle, String curAuthorStr, int curYear);
+	Book initializeNewBook(String curTitle, int curAuthorId, int curYear);
 	void deleteBook(int curId);
 	boolean checkIfBookExists(Book book);
 	Book getBookByParametres(String curTitle, Author curAuthor, int pubYear);

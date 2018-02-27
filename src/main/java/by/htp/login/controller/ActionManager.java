@@ -2,6 +2,7 @@ package by.htp.login.controller;
 
 import by.htp.login.controller.actions.BaseAction;
 import by.htp.login.controller.actions.impl.*;
+import static by.htp.login.controller.util.ControllerActionConstants.*;
 
 public class ActionManager {
 	
@@ -12,63 +13,63 @@ public class ActionManager {
 	public static BaseAction defineServerAction(String action) {
 		BaseAction act = null;
 		switch(action) {
-			case "log_in":{
+			case LOG_IN : {
 				act = new AutorizateAction();
 				break;
 			}
-			case "registration":{
+			case TO_REGISTRATION_PAGE : {
 				act = new GoToRegistrationPage();
 				break;
 			}
-			case "registrate":{
+			case REGISTRATE : {
 				act = new RegistrateAction();
 				break;
 			}
-			case "to_first_page":{
+			case TO_MAIN_PAGE : {
 				act = new GoToFirstPage();
 				break;
 			}
-			case "to_admin_page" : {
+			case TO_ADMIN_PAGE : {
 				act = new GoToAdminPage();
 				break;
 			}
-			case "to_user_page" : {
+			case TO_USER_PAGE : {
 				act = new GoToUserPage();
 				break;
 			}
-			case "show_books" : {
+			case SHOW_BOOKS : {
 				act = new ShowBooksAction();
 				break;
 			}
-			case "show_books_edit" :{
+			case SHOW_BOOKS_ADVANCED : {
 				act = new ShowAdminBooksAction();
 				break;
 			}
-			case "add_new_book" : {
+			case TO_ADDITION_BOOK_PAGE : {
 				act = new GoToAddNewBookPage();
 				break;
 			}
-			case "add_book" : {
+			case ADD_BOOK_BY_FORMS : {
 				act = new AddBookAction();
 				break;
 			}
-			case "delete_book" : {
+			case DELETE_BOOK : {
 				act = new DeleteBookAction();
 				break;
 			}
-			case "add_book_select" : {
+			case ADD_BOOK_BY_CHOOSE : {
 				act = new AddBookSelectAction();
 				break;
 			}
-			case "edit_book" : {
+			case TO_MODIFICATION_BOOK_PAGE : {
 				act = new GoToEditBookPage();
 				break;
 			}
-			case "update_book" : {
+			case UPDATE_BOOK : {
 				act = new UpdateBookAction();
 				break;
 			}
-			default:{
+			default : {
 				act = new DefaultAction();
 			}
 		}

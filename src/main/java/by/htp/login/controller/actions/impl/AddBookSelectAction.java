@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import by.htp.login.controller.actions.BaseAction;
 import by.htp.login.service.AuthorService;
@@ -14,35 +13,33 @@ import by.htp.login.service.impl.AuthorServiceImpl;
 import by.htp.login.service.impl.BookServiceImpl;
 
 import static by.htp.login.controller.util.ControllerConstantsPool.*;
+import static by.htp.login.controller.util.ControllerParametresConstants.*;
 
 public class AddBookSelectAction implements BaseAction{
 
 	@Override
-	public void doAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public RequestDispatcher doAction(HttpServletRequest request) throws ServletException, IOException {
 		
 		BookService bookService = new BookServiceImpl();
 		AuthorService authorService = new AuthorServiceImpl();
-		RequestDispatcher dispatcher = null;
-		request.setAttribute("autList", authorService.getAuthorsCatalog());
+		request.setAttribute(AUTHORS_LIST, authorService.getAuthorsCatalog());
 		try {
-			String title = request.getParameter("title");
-			String curAuthorStr = request.getParameter("author");
-			int publishedYear = Integer.parseInt(request.getParameter("date").split("-")[0]);
-			request.setAttribute("title",title );
-			if( !bookService.checkIfBookExists(bookService.initializeNewBook(title, curAuthorStr, publishedYear)) ) {
-				bookService.createBook(bookService.initializeNewBook(title, curAuthorStr, publishedYear));
-				dispatcher = request.getRequestDispatcher(BOOK_ADDED_PAGE);
+			String title = request.getParameter(BOOK_TITLE);
+			int curAuthorId = Integer.parseInt(request.getParameter(AUTHOR_STRING).trim());
+			int publishedYear = Integer.parseInt(request.getParameter(DATE_FROM_CALENDAR).split("-")[0]);
+			request.setAttribute(BOOK_TITLE,title );
+			if( !bookService.checkIfBookExists(bookService.initializeNewBook(title, curAuthorId, publishedYear)) ) {
+				bookService.createBook(bookService.initializeNewBook(title, curAuthorId, publishedYear));
+				return request.getRequestDispatcher(BOOK_ADDED_PAGE);
 			}
 			else {
-				request.setAttribute("book",title);
-				dispatcher = request.getRequestDispatcher(BOOK_EXISTS);
+				request.setAttribute(BOOK_TITLE,title);
+				return  request.getRequestDispatcher(BOOK_EXISTS_PAGE);
 			}
 		}
 		catch(NumberFormatException e) {
-			dispatcher = request.getRequestDispatcher(EROOR_INIT_FIELDS);
-			e.printStackTrace();
+			return request.getRequestDispatcher(EROOR_INIT_FIELDS_PAGE);
 		}
-		dispatcher.forward(request, response);
 	}
 
 }

@@ -1,6 +1,7 @@
 package by.htp.login.bean.users;
 
 import by.htp.login.bean.Entity;
+import by.htp.login.bean.util.MD5;
 
 public abstract class User extends Entity{
 	private String login;
@@ -16,12 +17,18 @@ public abstract class User extends Entity{
 	public User(String login, String pass) {
 		super();
 		this.login = login;
-		this.password = pass;
+		this.password = MD5.md5Custom(pass);
 	}
+	
+	public User(String login) {
+		super();
+		this.login = login;
+	}
+	
 	public User(int id, String login, String pass) {
 		super(id);
 		this.login = login;
-		this.password = pass;
+		this.password = MD5.md5Custom(pass);
 	}
 	
 	public String getLogin() {
@@ -34,7 +41,11 @@ public abstract class User extends Entity{
 		return password;
 	}
 	public void setPassword(String pass) {
-		this.password = pass;
+		this.password = MD5.md5Custom(pass);
+	}
+	
+	public void setMd5Password(String md5Pass) {
+		this.password = md5Pass;
 	}
 	
 	public boolean isAdmin() {
@@ -43,6 +54,7 @@ public abstract class User extends Entity{
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -52,6 +64,7 @@ public abstract class User extends Entity{
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -75,6 +88,7 @@ public abstract class User extends Entity{
 			return false;
 		return true;
 	}
+	
 	@Override
 	public String toString() {
 		return "User ID = "+  getId()+" Login=" + getLogin() + ", Pass=" + getPassword();

@@ -20,7 +20,8 @@ label {
 		<h2 align="center">Registration</h2>
 		<form action="MainServlet" method="post">
 			<p align="center"><label>Login:<input type="text" name="login" size="28" maxlength="100" >		</label></p>
-			<p align="center"><label>Password:<input type="password" name="password" size="25" maxlength="100" ></label></p>
+			<p align="center"><label>Password:<input type="password" name="password" size="25" maxlength="100" ></label> </p>
+			<h5 align="center">Password should not shorter than 6 symbols</h5>
 			<p align="center"><input type="hidden" name="action" value="registrate"/></p>
 			<p align="center"><input type="submit" value="Registrate"/></p>
 		</form>

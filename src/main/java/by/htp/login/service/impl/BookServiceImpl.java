@@ -5,14 +5,14 @@ import java.util.List;
 import by.htp.login.bean.Book;
 import by.htp.login.bean.fields.Author;
 import by.htp.login.dao.BookDao;
-import by.htp.login.dao.impl.BookDaoDataBaseImpl;
+import by.htp.login.dao.util.BookFactoryMethod;
 import by.htp.login.service.AuthorService;
 import by.htp.login.service.BookService;
+import static by.htp.login.dao.util.DaoTypesConstants.*;
 
 public class BookServiceImpl implements BookService{
 	
-	//TODO Factory method
-	private BookDao bookDao = new BookDaoDataBaseImpl();
+	private BookDao bookDao = BookFactoryMethod.getDataBaseHandler(SQL_DATA_BASE);
 
 	@Override
 	public List<Book> getBooksCatalog() {
@@ -42,10 +42,9 @@ public class BookServiceImpl implements BookService{
 	}
 
 	@Override
-	public Book initializeNewBook(String curTitle, String curAuthorIDStr, int curYear) {
+	public Book initializeNewBook(String curTitle, int curAuthorID, int curYear) {
 		AuthorService authorService = new AuthorServiceImpl();
-		int authID = Integer.parseInt(curAuthorIDStr.trim());
-		return new Book(curTitle,authorService.getAuthor(authID),curYear);
+		return new Book(curTitle,authorService.getAuthor(curAuthorID),curYear);
 	}
 
 	@Override
@@ -56,7 +55,6 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public Book getBookByParametres(String curTitle, Author curAuthor, int pubYear) {
 		return bookDao.readByParams(curTitle, curAuthor, pubYear);
-		
 	}
 
 	@Override

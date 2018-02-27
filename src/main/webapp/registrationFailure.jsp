@@ -5,26 +5,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Successful book updating</title>
+<title>Registration completed</title>
 </head>
 <style>
-
-body {
-       color: rgb(0,200,0)
+h2 {
+       color: rgb(250,15,19)
 }
 </style>
-<body>
 
-	<h1 align="left"><c:out  value="Book with id = ${bookid} was updated successfully."/></h1>
-	
-	<form action="MainServlet" method="post">
-		<p align="left"><input type="hidden" name="action" value="to_admin_page"/></p>
-		<p align="left"><input type="submit" value="to admin page"/>
-	</form>
-	
+<body>
+	<h2>Registration failed!</h2>
+	<h2>Login can not be empty and password should be longer than 6 symbols</h2>
+	<h2>Please, try again!</h2>
 	<form action="MainServlet" method="post">
 		<p align="left"><input type="hidden" name="action" value="to_first_page"/></p>
 		<p align="left"><input type="submit" value="back to main page"/>
 	</form>
+	
 </body>
 </html>

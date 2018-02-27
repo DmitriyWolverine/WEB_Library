@@ -1,5 +1,8 @@
 package by.htp.login.dao.impl;
 
+import static by.htp.login.dao.util.DaoSqlRequestsPool.*;
+import static by.htp.login.dao.util.DaoSqlParametres.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,7 +15,6 @@ import java.util.List;
 import by.htp.login.bean.Book;
 import by.htp.login.bean.fields.Author;
 import by.htp.login.dao.BookDao;
-import static by.htp.login.controller.util.ControllerSqlRequestsPool.*;
 
 public class BookDaoDataBaseImpl implements BookDao{
 	
@@ -26,7 +28,7 @@ public class BookDaoDataBaseImpl implements BookDao{
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		try( Connection cn = DriverManager.getConnection(URL,"root","root");
+		try( Connection cn = DriverManager.getConnection(URL,CONNECTION_LOGIN,CONNECTION_PASS);
 				PreparedStatement statement = cn.prepareStatement(SQL_REQUEST_INSERT_NEW_BOOK)) {
 			statement.setString(1, entity.getTitle());
 			statement.setInt(2, entity.getPublishedYear());
@@ -73,7 +75,7 @@ public class BookDaoDataBaseImpl implements BookDao{
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		try( Connection cn = DriverManager.getConnection(URL,"root","root");
+		try( Connection cn = DriverManager.getConnection(URL,CONNECTION_LOGIN,CONNECTION_PASS);
 				PreparedStatement statement = cn.prepareStatement(SQL_REQUEST_UPDATE_BOOK)) {
 			statement.setString(1, entity.getTitle());
 			statement.setInt(2, entity.getPublishedYear());
@@ -96,8 +98,8 @@ public class BookDaoDataBaseImpl implements BookDao{
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		try( Connection cn = DriverManager.getConnection(URL,"root","root");
-				PreparedStatement statement = cn.prepareStatement(SQL_REQUEST_DELTE_BOOK)) {
+		try( Connection cn = DriverManager.getConnection(URL,CONNECTION_LOGIN,CONNECTION_PASS);
+				PreparedStatement statement = cn.prepareStatement(SQL_REQUEST_DELETE_BOOK)) {
 			statement.setInt(1, id);
 			statement.executeUpdate();
 		} catch (SQLException e) {
@@ -114,15 +116,15 @@ public class BookDaoDataBaseImpl implements BookDao{
 			e1.printStackTrace();
 		}
 		List<Book> books = new ArrayList<>();
-		try( Connection cn = DriverManager.getConnection(URL,"root","root");
+		try( Connection cn = DriverManager.getConnection(URL,CONNECTION_LOGIN,CONNECTION_PASS);
 				Statement st =  cn.createStatement();	
 				ResultSet bookRes = st.executeQuery(SQL_REQUEST_GET_BOOKS)) {
 			while(bookRes.next()) {
-				Book currentBook = new Book(bookRes.getInt("ID") );
-				currentBook.setTitle(bookRes.getString("Title"));
-				Author bookAuthor = new Author((bookRes.getInt("AuthorID")), bookRes.getString("name"),bookRes.getString("surname"), bookRes.getDate("birthday"));
+				Book currentBook = new Book(bookRes.getInt(BOOK_ID_COLUMN) );
+				currentBook.setTitle(bookRes.getString(BOOK_TITLE_COLUMN));
+				Author bookAuthor = new Author((bookRes.getInt(AUTHOR_ID_COLUMN)), bookRes.getString(AUTHOR_NAME_COLUMN),bookRes.getString(AUTHOR_SURNAME_COLUMN), bookRes.getDate(AUTHOR_BIRTHDAY_COLUMN));
 				currentBook.setAuthor(bookAuthor);
-				currentBook.setPublishedYear(Integer.parseInt(bookRes.getString("Published_Year")));
+				currentBook.setPublishedYear(Integer.parseInt(bookRes.getString(BOOK_PUBLISHED_YEAR_COLUMN)));
 				books.add(currentBook);
 			}
 		}

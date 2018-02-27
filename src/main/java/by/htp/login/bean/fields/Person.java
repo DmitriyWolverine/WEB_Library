@@ -90,6 +90,8 @@ public abstract class Person extends Entity{
 		if(obj==null) {
 			return false;
 		}
+		if (getClass() != obj.getClass())
+			return false;
 		Person other = (Person) obj;
 		if (name == null) {
 			if (other.name != null)
@@ -102,6 +104,8 @@ public abstract class Person extends Entity{
 		} else if (!surname.equals(other.surname))
 			return false;
 		return true;
+		
+		
 	}
 
 	@Override
