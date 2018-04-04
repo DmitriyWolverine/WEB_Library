@@ -2,7 +2,7 @@ package by.htp.login.dao;
 
 import java.util.List;
 
-import by.htp.login.bean.fields.Author;
+import by.htp.login.bean.Author;
 
 public interface AuthorDao extends BaseDao<Author>{
 	List<Author> readAuthors();

@@ -1,11 +1,10 @@
 package by.htp.login.bean;
 
-import by.htp.login.bean.fields.Author;
-
 public class Book extends Entity{
 	private String title;
 	private Author author;
 	private int publishedYear;
+	private boolean available = true;
 
 	public Book() {
 		super();
@@ -26,6 +25,20 @@ public class Book extends Entity{
 		this.author = author;
 		this.publishedYear = year;
 	}
+	
+	public Book(int id, String title, Author author, int year, int status) {
+		super(id);
+		this.title = title;
+		this.author = author;
+		this.publishedYear = year;
+		if(status == 1) {
+			available = true;
+		}
+		else {
+			available = false;
+		}
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -44,6 +57,18 @@ public class Book extends Entity{
 	}
 	public void setPublishedYear(int publishedYear) {
 		this.publishedYear = publishedYear;
+	}
+	
+	public boolean isAvailable() {
+		return available;
+	}
+	
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+	
+	public int getAvailableInt() {
+		return available?1:0;
 	}
 	@Override
 	public int hashCode() {

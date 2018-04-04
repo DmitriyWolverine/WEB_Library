@@ -2,8 +2,8 @@ package by.htp.login.service;
 
 import java.util.List;
 
+import by.htp.login.bean.Author;
 import by.htp.login.bean.Book;
-import by.htp.login.bean.fields.Author;
 
 public interface BookService {
 	List<Book> getBooksCatalog(); 
@@ -13,6 +13,9 @@ public interface BookService {
 	Book initializeNewBook(String curTitle, int curAuthorId, int curYear);
 	void deleteBook(int curId);
 	boolean checkIfBookExists(Book book);
-	Book getBookByParametres(String curTitle, Author curAuthor, int pubYear);
+	List<Book> getBookByParametres(String curTitle, Author curAuthor, int pubYear);
 	Book getBookById(int id);
+	List<Book> getChoosenBooks(String title, String aName, String aSurname, int publishedYear);
+	void changeStatusBook(int id, boolean status);
+	List<Book> getBookByUserId(int userId);
 }
