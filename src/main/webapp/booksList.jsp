@@ -4,22 +4,23 @@
 <!DOCTYPE html">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Our books</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Our books</title>
+	<link a href="css/userBooksList_style.css" type="text/css" rel="stylesheet">
 </head>
-<style>
-body {
-       color: rgb(50,60,0)
-}
-h5 {
-       color: rgb(50,60,0)
-}
-</style>
+
 <body>
-	<h2 align="left">Our books:</h2>
+	<h3 align="left">Books:</h3>
+	
+	<h3 align="left">${message}</h3>
 	
 	<c:forEach items="${list}" var="item">
-		<p><h5><c:out value="${item}"/></h5>
+		<h5><c:out value="${item}"/></h5>
+		<form action="MainServlet" method="post">
+			<input type="hidden" name="action" value="take_book"/>
+			<input type="hidden" name="bookid" value="${item.getId()}"/>
+			<input type="submit" value="take book"/>
+		</form>
 	</c:forEach> 
 	
 	<form action="MainServlet" method="post">

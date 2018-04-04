@@ -4,21 +4,23 @@
 <!DOCTYPE html">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Admins books list</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Admins books list</title>
+	<link a href="css/adminBooksList_style.css" type="text/css" rel="stylesheet">
 </head>
 
-<style>
-h5 {
-       color: rgb(50,60,120)
-}
-</style>
-
 <body>
-<h3 align="left">Admins books:</h3>
+<h3>Admins books:</h3>
+<h3>${message}</h3>
 
 	<c:forEach items="${list}" var="item">
-		<p><h5><c:out value="${item}"/></h5>
+	<div id="book">
+		<c:out value="${item}"/>
+		<form action="MainServlet" method="post">
+			<input type="hidden" name="action" value="edit_book"/>
+			<input type="hidden" name="bookid" value="${item.getId()}"/>
+			<input type="submit" value="EDIT"/>
+		</form>
 		
 		<form action="MainServlet" method="post">
 			<input type="hidden" name="action" value="delete_book"/>
@@ -27,13 +29,14 @@ h5 {
 		</form>
 		
 		<form action="MainServlet" method="post">
-			<input type="hidden" name="action" value="edit_book"/>
+			<input type="hidden" name="action" value="take_book"/>
 			<input type="hidden" name="bookid" value="${item.getId()}"/>
-			<input type="submit" value="EDIT"/>
+			<input type="submit" value="TAKE BOOK"/>
 		</form>
-	
+	</div>
 	</c:forEach> 
-	<br>
+
+	<div id="field">
 	<form action="MainServlet" method="post">
 		<label>Title:<input type="text" name="title" size="28" maxlength="100" ></label>
 		 
@@ -45,18 +48,23 @@ h5 {
 		</select>
 	
 		Date:<input type="date" name="date" />
-		<p align="left"><input type="hidden" name="action" value="add_book_select"/></p>
-		<p align="left"><input type="submit" value="Add new book"/>
+		<input type="hidden" name="action" value="add_book_select"/>
+		<input type="submit" value="Add this book"/>
+	</form>
+	</div>	
+	<form action="MainServlet" method="post">
+		<p ><input type="hidden" name="action" value="add_new_book"/></p>
+		<p ><input type="submit" value="Add new book"/>
 	</form>
 	
 	<form action="MainServlet" method="post">
-		<p align="left"><input type="hidden" name="action" value="to_admin_page"/></p>
-		<p align="left"><input type="submit" value="to previous page"/>
+		<p ><input type="hidden" name="action" value="to_admin_page"/></p>
+		<p ><input type="submit" value="to previous page"/>
 	</form>
 	
 	<form action="MainServlet" method="post">
-		<p align="left"><input type="hidden" name="action" value="to_first_page"/></p>
-		<p align="left"><input type="submit" value="back to main page"/>
+		<p><input type="hidden" name="action" value="to_first_page"/></p>
+		<p ><input type="submit" value="back to main page"/>
 	</form>
 
 </body>

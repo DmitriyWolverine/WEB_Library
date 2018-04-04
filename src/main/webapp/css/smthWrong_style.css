@@ -1,0 +1,13 @@
+h3, p{
+	text-align:center;
+}
+body{
+	margin:300px,300px;
+	background:url(../images/empty_forms.jpg);
+	background-repeat: no-repeat;
+    background-size: 1600px 800px;
+	color:#bf0707;
+}
+form{
+	text-align:center;
+}

@@ -4,19 +4,16 @@
 <!DOCTYPE html">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Edit book page</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Edit book page</title>
+	<link a href="css/editor_style.css" type="text/css" rel="stylesheet">
 </head>
-<style>
-h4 {
-       color: rgb(50,60,120)
-}
-</style>
+
 <body>
-	<h1 align="center">Book editor!</h1>
+	<h1 >Book editor!</h1>
 	
 	<form action="MainServlet" method="post">
-		<label>Title:<input type="text" name="title" size="28" maxlength="100" ></label>
+		<label>Title:<input type="text" name="title" size="28" maxlength="100" value="${value}" ></label>
 
 		 <select name="author" >
 		 	<option disabled>Choose author</option>

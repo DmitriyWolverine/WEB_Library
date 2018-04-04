@@ -1,0 +1,12 @@
+body{
+	background:url(../images/successfulReg.jpg);
+	background-repeat: no-repeat;
+    background-size: 1600px 800px;
+	color:#bf0707;
+}
+
+h2{
+	text-align:center;
+	font:Tahoe;
+	color:#4286f4;
+}

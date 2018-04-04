@@ -1,0 +1,9 @@
+body{
+	background:url(../images/book.jpg);
+	background-repeat: no-repeat;
+    background-size: 1600px 800px;
+    color:#bf0707;
+}
+h4, p{
+	text-align:center;
+}

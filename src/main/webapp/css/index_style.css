@@ -1,0 +1,17 @@
+body{
+	background-image:url(../images/main.jpg);
+}
+#first{
+	margin-top:150px;
+}
+h1{
+	text-align:center;
+	font:42px Verdan;
+	text-align:center;
+}
+p,label,input{
+	font:20 Tahoe;
+}
+form{
+	text-align:center;
+}

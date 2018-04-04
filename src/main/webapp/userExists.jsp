@@ -6,25 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Registration error</title>
+<link a href="css/smthWrong_style.css" type="text/css" rel="stylesheet">
 </head>
-<style>
-h3 {
-       color: rgb(128,200,255)
-}
-</style>
 
 <body>
 	<h3><c:out  value="Login ${login} does exist..."/></h3>
 	<h3><c:out  value="Try another login"/></h3>
 	
 	<form action="MainServlet" method="post">
-		<p align="left"><input type="hidden" name="action" value="registration"/></p>
-		<p align="left"><input type="submit" value="to previous page"/>
+		<p ><input type="hidden" name="action" value="registration"/></p>
+		<p ><input type="submit" value="to registration page"/>
 	</form>
 	
 	<form action="MainServlet" method="post">
-		<p align="left"><input type="hidden" name="action" value="to_first_page"/></p>
-		<p align="left"><input type="submit" value="back to main page"/>
+		<p ><input type="hidden" name="action" value="to_first_page"/></p>
+		<p ><input type="submit" value="back to main page"/>
 	</form>
 	
 	

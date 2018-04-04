@@ -4,26 +4,47 @@
 <!DOCTYPE html">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Logged-in Page</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Logged-in Page</title>
+	<link a href="css/userPage_style.css" type="text/css" rel="stylesheet">
 </head>
-<style>
-body {
-       color: rgb(0,200,0)
-}
-</style>
 
 <body>
-	<h1 align="center"><c:out  value="Hello from user page"/></h1>
+	<h1 ><c:out  value="Hello, ${login}, from user page"/></h1>
+	<h2 ><c:out  value="Your book card:"/></h1>
+	
+	
+	<c:forEach items="${list}" var="item">
+		<p><h5><c:out value="${item}"/></h5>
+			<c:choose>
+				<c:when test="${!item.isAvailable()}">
+					<form action="MainServlet" method="post">
+						<input type="hidden" name="action" value="return_book"/>
+						<input type="hidden" name="bookid" value="${item.getId()}"/>
+						<input type="submit" value="return book"/>
+					</form>
+				</c:when>
+			</c:choose>
+	</c:forEach> 
+	
 	
 	<form action="MainServlet" method="post">
-			<p align="center"><input type="hidden" name="action" value="show_books"/></p>
-			<p align="center"><input type="submit" value="Show books"/></p>
+		<label>Title:<input type="text" name="title" size="28" maxlength="100" ></label>
+		<label>Author:<input type="text" name="author" size="28" maxlength="100" ></label>
+		Date:<input type="date" name="date" />
+		<input type="hidden" name="action" value="find_books"/>
+		<input type="submit" value="Find"/>
+	</form>
+	
+		
+	<form action="MainServlet" method="post">
+			<p ><input type="hidden" name="action" value="show_books"/></p>
+			<p ><input type="submit" value="Show all books"/></p>
 	</form>
 	
 	<form action="MainServlet" method="post">
-		<p align="center"><input type="hidden" name="action" value="to_first_page"/></p>
-		<p align="center"><input type="submit" value="back to main page"/>
+		<p><input type="hidden" name="action" value="to_first_page"/></p>
+		<p ><input type="submit" value="back to main page"/>
 	</form>
 </body>
 </html>
